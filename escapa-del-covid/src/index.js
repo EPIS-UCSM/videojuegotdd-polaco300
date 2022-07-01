@@ -1,6 +1,6 @@
 import Phaser from 'phaser';
 import Bootloader from './scenes/Bootloader';
-import Ui from './scenes/Ui';
+import UI from './scenes/UI';
 import Play from './scenes/Play';
 import Menu from './scenes/Menu';
 
@@ -22,13 +22,13 @@ const CONFIG = {
             gravity: {
                 y: 2000
             },
-            debug: true
+            debug: false
         }
     },
     scene: [
         Bootloader,
         Menu,
-        Ui,
+        UI,
         Play
     ]
 };

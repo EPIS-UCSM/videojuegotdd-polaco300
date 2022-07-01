@@ -1,4 +1,6 @@
 import RedBoy from "../Player/RedBoy";
+import Virus from "../Objects/Virus";
+import RedCrossItem from "../Objects/RedCrossItem";
 
 class Play extends Phaser.Scene {
     constructor () {
@@ -8,7 +10,7 @@ class Play extends Phaser.Scene {
     }
 
     init () {
-
+        this.scene.launch('UI');
     }
 
     preload () {
@@ -23,16 +25,37 @@ class Play extends Phaser.Scene {
         this.wall_floor.create(0, this.scale.height, 'floor').setOrigin(0, 1);
         this.wall_floor.refresh();
         this.wall_floor.getChildren()[2].setOffset(0, 15);
+
+        // Virus group
+        this.virusGroup = new Virus({
+            physicsWorld: this.physics.world,
+            scene: this
+        });
+        this.itemsGroup = new RedCrossItem({
+            physicsWorld: this.physics.world,
+            scene: this
+        });
+
+        // Player
         this.redBoy = new RedBoy({
             scene: this,
             x: 100,
             y: 100
         });
-        this.physics.add.collider(this.redBoy, this.wall_floor);
+        this.physics.add.collider([this.redBoy, this.virusGroup], this.wall_floor);
+        this.physics.add.overlap(this.redBoy, this.virusGroup, () => {
+            this.redBoy.virusCollision();
+        });
+        this.physics.add.overlap(this.itemsGroup, this.redBoy, () => {
+            this.registry.events.emit('update_points');
+            this.itemsGroup.destroyItem();
+            this.virusGroup.addVirus();
+        });
     }
 
     update () {
         this.redBoy.update();
+        this.virusGroup.update();
     }
 
 }

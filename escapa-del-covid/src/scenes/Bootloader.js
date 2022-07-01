@@ -42,7 +42,7 @@ class Bootloader extends Phaser.Scene {
         this.load.on('complete', () => {
             const fontData = this.cache.json.get('fontData');
             this.cache.bitmapFont.add('pixelFont', Phaser.GameObjects.RetroFont.Parse(this, fontData));
-            this.scene.start('Play');
+            this.scene.start('Menu');
         });
     }
 

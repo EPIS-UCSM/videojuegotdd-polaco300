@@ -1,4 +1,4 @@
-function movimientoIzquierda(cursor, mov, salto){
+function movimientos(cursor, mov, salto){
     if(cursor == 'left'){
         if(mov == 'mov left' && salto == 'no'){
             return 'left';
@@ -27,4 +27,4 @@ function movimientoIzquierda(cursor, mov, salto){
     }
 }
 
-module.exports = movimientoIzquierda
+module.exports = movimientos

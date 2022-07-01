@@ -15,9 +15,10 @@ class RedBoy extends Phaser.GameObjects.Sprite {
         this.anims.play('object_idle');
         this.prevMov = 'object_idle';
 
-        this.hitsDelay = false;
+        this.hitDelay = false;
 
         this.cursor = this.scene.input.keyboard.createCursorKeys();
+        this.life = 3;
     }
 
     update () {
@@ -62,6 +63,25 @@ class RedBoy extends Phaser.GameObjects.Sprite {
             }
         }else if(this.body.blocked.down) {
             this.jumping = false;
+        }
+    }
+
+    virusCollision() {
+        if(!this.hitDelay) {
+            this.hitDelay = true;
+            this.life--;
+            this.scene.registry.events.emit('remove_life');
+            if(this.life === 0){
+                this.scene.registry.events.emit('game_over');
+            }
+            this.setTint(0x1abc9c);
+            this.scene.time.addEvent({
+                delay: 600,
+                callback: () => {
+                    this.hitDelay = false;
+                    this.clearTint();
+                }
+            });
         }
     }
 }
