@@ -1,21 +1,21 @@
-const player = require("./playermov");
+const player = require("./movimientosRedBoy");
 
 test('movimiento izquierda', () => {
-    expect(player('left','mov left','no')).toBe('left');
+    expect(player('left', false)).toBe('left');
 })
 
 test('movimiento derecha', () => {
-    expect(player('right','mov right','no')).toBe('right');
+    expect(player('right', false)).toBe('right');
 })
 
 test('movimiento abajo', () => {
-    expect(player('down','mov down','no')).toBe('down');
+    expect(player('down', false)).toBe('down');
 })
 
 test('player esta quieto', () => {
-    expect(player('idle','mov idle','no')).toBe('idle');
+    expect(player('object_idle', false)).toBe('object_idle');
 })
 
 test('player realiza un salto', () => {
-    expect(player('up','mov jump','no')).toBe('jump');
+    expect(player('jump',true)).toBe('jump');
 })

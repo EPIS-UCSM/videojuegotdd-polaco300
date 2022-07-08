@@ -1,3 +1,4 @@
+var mvirus = require('./movimientoVirus');
 class Virus extends Phaser.Physics.Arcade.Group {
     constructor (config) {
         super(config.physicsWorld, config.scene);
@@ -19,7 +20,9 @@ class Virus extends Phaser.Physics.Arcade.Group {
 
     update() {
         this.children.iterate( virus => {
-            if(virus.body.velocity.x < 0) {
+            // if(virus.body.velocity.x < 0) {
+                console.log(virus.body.velocity.x);
+            if(mvirus(virus.body.velocity.x) == 'negativo') {
                 virus.setAngularVelocity(-300);
             }else{
                 virus.setAngularVelocity(300);
